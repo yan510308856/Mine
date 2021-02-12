@@ -1,0 +1,32 @@
+#include<iostream>
+#include<iomanip>
+#include<cmath>
+#include<cstring>
+#include<cctype>
+using namespace std;
+bool prime[65536]={1,1}; //0,1不是素数，记为"1"
+bool isStrong(int n)
+{
+    if(prime[n]) return false;
+    if(n<10) return true;
+    int sum=0;
+    while(n)
+    {
+        sum+=n%10;
+        n/=10;
+    }
+    return isStrong(sum);
+}
+ int main()
+{
+   for(int i=2;i<256;++i)
+   {
+    if(prime[i]==0)
+    {
+        for(int j=i*i;j<65536;j+=i)
+        prime[j] = 1;
+    }
+   }
+   for(int n;cin>>n;)
+   cout<<(isStrong(n)?"YES\n":"NO\n");
+}
